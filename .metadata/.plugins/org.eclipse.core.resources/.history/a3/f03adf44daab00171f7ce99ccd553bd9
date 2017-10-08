@@ -1,0 +1,181 @@
+
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Properties;
+
+public class Config {
+
+//	private static String ud = System.getProperty("user.dir");
+
+//	// 需要下载的文件后缀
+//	private static String _ext = "";
+//
+//	// 不需要下载的目录
+//	private static String _not = "";
+//
+//	// 本地存储目录
+//	private static String local_path = "";
+//	// 远程下载目录
+//	private static String path = "";
+//
+//	private static String username = "";
+//	private static String password = "";
+//	private static String HOST = "";
+//	private static int PORT = 21;
+
+//	private static Config instance = new Config();
+
+//	public static String PROPERTIES_FILE = "config.properties";
+	private  String PROPERTIES_FILE = "";
+
+//	static {
+//
+//		try {
+			// Map m=System.getProperties();
+			// Set<String> ss=m.keySet();
+			// for(String s:ss ){
+			// System.out.println(s+"="+m.get(s));
+			// }
+			// System.out.println("==========");
+//
+//			
+//			//以下为静态加载的方式,
+//			FileInputStream f = null;
+//			try {
+//				Properties prop = new Properties();
+//				f = new FileInputStream(ud + File.separator + PROPERTIES_FILE);
+//
+//				prop.load(f);
+//
+//				local_path = prop.getProperty("local_path");
+//				if (local_path == null || (local_path.trim()).equals("")) {
+//					System.out.println("in read_properties_file,local_path can not be null!");
+//				} else {
+//					local_path = local_path.trim();
+//				}
+//
+//				path = prop.getProperty("path");
+//				if (path == null || (path.trim()).equals("")) {
+//					System.out.println("in read_properties_file,database.url can not be null!");
+//				} else {
+//					path = path.trim();
+//				}
+//				if (path.charAt(path.length() - 1) != '/') {
+//					path = path + "/";
+//				}
+//
+//				username = prop.getProperty("username");
+//				if (username == null) {
+//					System.out.println("in read_properties_file,username can not be null!");
+//				} else {
+//					username = username.trim();
+//				}
+//
+//				password = prop.getProperty("jdbc.password");
+//				if (password == null) {
+//					System.out.println("in read_properties_file,password can not be null!");
+//				} else {
+//					password = password.trim();
+//				}
+//
+//				HOST = prop.getProperty("HOST");
+//				if (HOST == null) {
+//					System.out.println("in read_properties_file,HOST can not be null!");
+//				} else {
+//					HOST = HOST.trim();
+//				}
+//
+//				_ext = prop.getProperty("_ext");
+//				if (_ext == null) {
+//				} else {
+//					_ext = _ext.trim();
+//				}
+//
+//				_not = prop.getProperty("_not");
+//				if (_not == null) {
+//				} else {
+//					_not = _not.trim();
+//				}
+//
+//				System.out.println("========>local_path=" + local_path);
+//				System.out.println("========>path=" + path);
+//				System.out.println("========>username=" + username);
+//				System.out.println("========>password=" + password);
+//				System.out.println("========>HOST=" + HOST);
+//				System.out.println("========>_ext=" + _ext);
+//				System.out.println("========>_not=" + _not);
+//
+//			} catch (Exception ex) {
+//				ex.printStackTrace();
+//				System.out.println("in read_properties_file, happen error: " + ex);
+//			} finally {
+//				try {
+//					f.close();
+//				} catch (IOException ex1) {
+//				}
+//
+//				f = null;
+//			}
+//
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//
+//		}
+//
+//	}
+
+	// 读取properties的全部信息
+	@SuppressWarnings("unchecked")
+	private   void readProperties() {
+		Properties props = new Properties();
+		try {
+//			InputStream in = new BufferedInputStream(new FileInputStream(ud + File.separator + PROPERTIES_FILE));
+			InputStream in = new BufferedInputStream(new FileInputStream(  PROPERTIES_FILE));
+			props.load(in);
+			Enumeration  en = props.propertyNames();
+			while (en.hasMoreElements()) {
+				String key = (String) en.nextElement();
+				String Property = props.getProperty(key);
+				System.out.println(key + Property);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// ////////////根据key读取value
+	public  String readValue(String key) {
+		Properties props = new Properties();
+		try {
+//			InputStream in = new BufferedInputStream(new FileInputStream(ud + File.separator + PROPERTIES_FILE));
+			InputStream in = new BufferedInputStream(new FileInputStream(  PROPERTIES_FILE));
+			props.load(in);
+			String value = props.getProperty(key);
+			System.out.println(key + "=" + value);
+			return value;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	 
+
+	public Config(String s) {
+		this .PROPERTIES_FILE=s;
+	}
+
+//	public static void main(String[] args) {
+//		Config dao = new Config("");
+//
+//		String aaa = dao.readValue("HOST");
+//
+//		// System.out.println("====>aaa=" + aaa);
+//
+//	}
+
+}
